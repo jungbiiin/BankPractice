@@ -1,3 +1,7 @@
+create schema db_bank;
+
+use db_bank;
+
 create table tb_user
 (
     user_id       int         not null primary key auto_increment,

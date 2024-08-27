@@ -15,15 +15,10 @@ class UserRepositoryImpl(
     val jpaQueryFactory: JPAQueryFactory
 ) : UserRepository {
 
-    override fun createUser(userName: String, password: String): Int {
+    override fun createUser(userName: String, password: String): UserEntity {
         val entity = UserEntity(null, userName, password)
         entityManager.persist(entity)
-        return entity.id!!
-    }
-
-    fun updateUser(userId: Int, userName: String, password: String) {
-        val entity = UserEntity(userId, userName, password)
-        entityManager.persist(entity)
+        return entity
     }
 
     override fun getAccountList(): List<GetAccountDto> {

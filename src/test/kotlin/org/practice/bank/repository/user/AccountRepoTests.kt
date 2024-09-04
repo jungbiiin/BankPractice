@@ -57,4 +57,14 @@ class AccountRepoTests {
             accountRepository.addMoney(res1.id!!, Money(2000,"JPN"))
         }
     }
+
+    @Transactional
+    @Test
+    fun subtractMoneyTest() {
+        val res1 = accountRepository.createAccount(1, "KRW")
+        accountRepository.addMoney(res1.id!!, Money(10000, "KRW"))
+        val hisRes= accountRepository.subtractMoney(res1.id!!, Money(2000, "KRW"))
+        assertEquals(res1.id, hisRes.accountId)
+        assertEquals(8000, hisRes.amount)
+    }
 }

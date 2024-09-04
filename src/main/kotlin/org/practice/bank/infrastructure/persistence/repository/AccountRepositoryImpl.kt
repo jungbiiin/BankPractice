@@ -30,7 +30,7 @@ class AccountRepositoryImpl(
         val findAccount = entityManager.find(AccountEntity::class.java, accountId)
             ?: throw IllegalArgumentException("Account not found with id: $accountId")
 
-        if(findAccount.currency!=money.currency){
+        if (findAccount.currency != money.currency) {
             throw IllegalArgumentException("Currency not match ${money.currency} and ${findAccount.currency}")
         }
 
@@ -42,7 +42,16 @@ class AccountRepositoryImpl(
     }
 
     override fun subtractMoney(accountId: Int, money: Money): AccountHistoryEntity {
-        TODO("Not yet implemented")
+        val findAccount = entityManager.find(AccountEntity::class.java, accountId)
+            ?: throw IllegalArgumentException("Account not found with id: $accountId")
+
+        if (findAccount.currency != money.currency) {
+            throw IllegalArgumentException("Currency not match ${money.currency} and ${findAccount.currency}")
+        }
+        findAccount.balance -= money.amount
+        val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance)
+        entityManager.persist(findAccount)
+        return newHistory
     }
 
     override fun getHistory(userId: Int): List<AccountHistoryEntity> {

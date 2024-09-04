@@ -40,6 +40,5 @@ class UserRepoTests() {
         val res1 = userRepository.createUser("testUser", "testPassword")
         assertEquals("testUser",res1.userName)
         assertEquals("testPassword",res1.userPassword)
-
     }
 }

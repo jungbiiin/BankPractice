@@ -10,4 +10,5 @@ interface UserRepository {
 
     fun getAccountList(): List<GetAccountDto>
 
+    fun getUserIdList(): List<Int>
 }

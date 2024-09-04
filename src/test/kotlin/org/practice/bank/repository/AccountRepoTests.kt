@@ -1,11 +1,9 @@
-package org.practice.bank.repository.user
+package org.practice.bank.repository
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.practice.bank.BankApplication
 import org.practice.bank.domains.account.Money
-import org.practice.bank.repository.AccountRepository
-import org.practice.bank.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest

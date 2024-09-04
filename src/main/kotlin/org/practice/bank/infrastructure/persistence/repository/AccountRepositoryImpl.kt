@@ -29,6 +29,12 @@ class AccountRepositoryImpl(
     override fun addMoney(accountId: Int, money: Money): AccountHistoryEntity {
         val findAccount = entityManager.find(AccountEntity::class.java, accountId)
             ?: throw IllegalArgumentException("Account not found with id: $accountId")
+
+        if(findAccount.currency!=money.currency){
+            throw IllegalArgumentException("Currency not match ${money.currency} and ${findAccount.currency}")
+        }
+
+
         findAccount.balance += money.amount
         val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance)
         entityManager.persist(findAccount)

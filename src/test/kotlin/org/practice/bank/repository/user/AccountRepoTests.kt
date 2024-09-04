@@ -48,4 +48,13 @@ class AccountRepoTests {
         assertEquals(2000, hisRes.amount)
         println(hisRes.createDatetime) // 이거 왜 값이 -999999999-01-01T00:00
     }
+
+    @Transactional
+    @Test
+    fun addDifferentCurrencyMoneyTest() {
+        val res1 = accountRepository.createAccount(1, "KRW")
+        assertThrows<Exception> {
+            accountRepository.addMoney(res1.id!!, Money(2000,"JPN"))
+        }
+    }
 }

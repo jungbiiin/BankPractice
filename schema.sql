@@ -1,6 +1,9 @@
-create schema db_bank;
+CREATE SCHEMA IF NOT EXISTS db_bank;
+USE db_bank;
 
-use db_bank;
+DROP TABLE IF EXISTS tb_account_history;
+DROP TABLE IF EXISTS tb_account;
+DROP TABLE IF EXISTS tb_user;
 
 create table tb_user
 (
@@ -14,7 +17,8 @@ create table tb_account
 (
     account_id int not null primary key auto_increment,
     user_id    int not null,
-    balance    int not null
+    balance    int not null,
+    currency varchar(10) not null
 );
 
 create table tb_account_history

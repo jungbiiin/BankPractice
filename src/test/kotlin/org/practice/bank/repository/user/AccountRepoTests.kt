@@ -25,8 +25,17 @@ class AccountRepoTests {
     @Transactional
     @Test
     fun createAccountTest() {
-        val res1 = accountRepository.createAccount(1)
+        val res1 = accountRepository.createAccount(1, "KRW")
         assertEquals(1, res1.userId)
+        assertEquals("KRW", res1.currency)
+    }
+
+    @Transactional
+    @Test
+    fun createJpnAccountTest() {
+        val res1 = accountRepository.createAccount(1, "JPN")
+        assertEquals(1, res1.userId)
+        assertEquals("JPN", res1.currency)
     }
 
 }

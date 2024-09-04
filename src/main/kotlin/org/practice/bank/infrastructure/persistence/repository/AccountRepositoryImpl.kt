@@ -19,9 +19,8 @@ class AccountRepositoryImpl(
     val entityManager: EntityManager,
     val jpaQueryFactory: JPAQueryFactory,
 ) : AccountRepository {
-
-    override fun createAccount(userId: Int): AccountEntity {
-        val entity = AccountEntity(null, userId, 0)
+    override fun createAccount(userId: Int, currency: String): AccountEntity {
+        val entity = AccountEntity(null, userId, 0, currency)
         entityManager.persist(entity)
         return entity
     }

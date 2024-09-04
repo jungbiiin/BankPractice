@@ -13,4 +13,6 @@ class AccountEntity(
     val userId: Int,
     @Column(name = "balance", nullable = false)
     val balance: Int,
+    @Column(name = "currency", nullable = false)
+    val currency: String,
 )

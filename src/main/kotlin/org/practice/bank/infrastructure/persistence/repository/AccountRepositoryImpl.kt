@@ -48,6 +48,9 @@ class AccountRepositoryImpl(
         if (findAccount.currency != money.currency) {
             throw IllegalArgumentException("Currency not match ${money.currency} and ${findAccount.currency}")
         }
+        if (findAccount.balance - money.amount < 0) {
+            throw IllegalArgumentException("balance can not be negative")
+        }
         findAccount.balance -= money.amount
         val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance)
         entityManager.persist(findAccount)

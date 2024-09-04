@@ -3,6 +3,7 @@ package org.practice.bank.repository.user
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.practice.bank.BankApplication
+import org.practice.bank.domains.account.Money
 import org.practice.bank.repository.AccountRepository
 import org.practice.bank.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,4 +39,13 @@ class AccountRepoTests {
         assertEquals("JPN", res1.currency)
     }
 
+    @Transactional
+    @Test
+    fun addMoneyTest() {
+        val res1 = accountRepository.createAccount(1, "KRW")
+        val hisRes = accountRepository.addMoney(res1.id!!, Money(2000,"KRW"))
+        assertEquals(res1.id, hisRes.accountId)
+        assertEquals(2000, hisRes.amount)
+        println(hisRes.createDatetime) // 이거 왜 값이 -999999999-01-01T00:00
+    }
 }

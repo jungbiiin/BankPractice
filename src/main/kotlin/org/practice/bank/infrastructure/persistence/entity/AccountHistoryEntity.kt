@@ -4,6 +4,9 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.hibernate.annotations.CreationTimestamp
+import org.practice.bank.infrastructure.persistence.entity.time.BaseEntity
+import org.springframework.data.annotation.CreatedDate
 
 @Entity
 @Table(name = "tb_account_history", schema = "db_bank")
@@ -15,6 +18,4 @@ class AccountHistoryEntity(
     val accountId: Int,
     @Column(name = "amount", nullable = false)
     val amount: Int,
-    @Column(name = "create_datetime", nullable = false)
-    val createDatetime: Int,
-)
+): BaseEntity() //애초에 이렇게 하는게 맞는 건지

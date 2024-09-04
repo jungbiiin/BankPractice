@@ -2,6 +2,7 @@ package org.practice.bank.infrastructure.persistence.repository
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
+import org.practice.bank.domains.account.Account
 import org.practice.bank.domains.account.Money
 import org.practice.bank.dto.GetAccountDto
 import org.practice.bank.dto.QGetAccountDto
@@ -25,7 +26,16 @@ class AccountRepositoryImpl(
         return entity
     }
 
-    override fun putMoney(accountId: Int, money: Money): AccountHistoryEntity {
+    override fun addMoney(accountId: Int, money: Money): AccountHistoryEntity {
+        val findAccount = entityManager.find(AccountEntity::class.java, accountId)
+            ?: throw IllegalArgumentException("Account not found with id: $accountId")
+        findAccount.balance += money.amount
+        val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance)
+        entityManager.persist(findAccount)
+        return newHistory
+    }
+
+    override fun subtractMoney(accountId: Int, money: Money): AccountHistoryEntity {
         TODO("Not yet implemented")
     }
 

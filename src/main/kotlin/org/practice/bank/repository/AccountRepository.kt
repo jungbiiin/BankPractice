@@ -6,7 +6,8 @@ import org.practice.bank.infrastructure.persistence.entity.AccountHistoryEntity
 
 interface AccountRepository {
     fun createAccount(userId: Int, currency: String): AccountEntity
-    fun putMoney(accountId: Int, money: Money): AccountHistoryEntity
+    fun addMoney(accountId: Int, money: Money): AccountHistoryEntity
+    fun subtractMoney(accountId: Int, money: Money): AccountHistoryEntity
     fun getHistory(userId: Int): List<AccountHistoryEntity>
     fun deleteAccount(userId: Int)
     fun getUserAccount(userId: Int): List<AccountEntity>

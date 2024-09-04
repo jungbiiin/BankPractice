@@ -43,9 +43,11 @@ class AccountRepoTests {
     @Test
     fun addMoneyTest() {
         val res1 = accountRepository.createAccount(1, "KRW")
-        val hisRes = accountRepository.addMoney(res1.id!!, Money(2000,"KRW"))
+        val hisRes = accountRepository.addMoney(res1.id!!, Money(2000,"KRW"),null)
+        val hisRes2 = accountRepository.addMoney(res1.id!!, Money(2000,"KRW"),2)
         assertEquals(res1.id, hisRes.accountId)
         assertEquals(2000, hisRes.amount)
+        assertEquals(2,hisRes2.transactionAccountId)
         println(hisRes.createDatetime) // 이거 왜 값이 -999999999-01-01T00:00
     }
 
@@ -54,7 +56,7 @@ class AccountRepoTests {
     fun addDifferentCurrencyMoneyTest() {
         val res1 = accountRepository.createAccount(1, "KRW")
         assertThrows<Exception> {
-            accountRepository.addMoney(res1.id!!, Money(2000,"JPN"))
+            accountRepository.addMoney(res1.id!!, Money(2000,"JPN"),null)
         }
     }
 
@@ -62,19 +64,21 @@ class AccountRepoTests {
     @Test
     fun subtractMoneyTest() {
         val res1 = accountRepository.createAccount(1, "KRW")
-        accountRepository.addMoney(res1.id!!, Money(10000, "KRW"))
-        val hisRes= accountRepository.subtractMoney(res1.id!!, Money(2000, "KRW"))
+        accountRepository.addMoney(res1.id!!, Money(10000, "KRW"),null)
+        val hisRes= accountRepository.subtractMoney(res1.id!!, Money(2000, "KRW"),null)
+        val hisRes2 = accountRepository.addMoney(res1.id!!, Money(2000,"KRW"),2)
         assertEquals(res1.id, hisRes.accountId)
         assertEquals(8000, hisRes.amount)
+        assertEquals(2,hisRes2.transactionAccountId)
     }
 
     @Transactional
     @Test
     fun overSubtractMoneyTest() {
         val res1 = accountRepository.createAccount(1, "KRW")
-        accountRepository.addMoney(res1.id!!, Money(10000, "KRW"))
+        accountRepository.addMoney(res1.id!!, Money(10000, "KRW"),null)
         assertThrows<Exception> {
-            accountRepository.subtractMoney(res1.id!!, Money(12000, "KRW"))
+            accountRepository.subtractMoney(res1.id!!, Money(12000, "KRW"),null)
         }
     }
 }

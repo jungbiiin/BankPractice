@@ -26,5 +26,6 @@ create table tb_account_history
     account_history_id int not null primary key auto_increment,
     account_id         int not null,
     amount             int not null,
-    create_datetime    int not null
+    create_datetime    int not null,
+    transaction_account_id int
 );

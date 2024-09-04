@@ -15,6 +15,7 @@ import org.practice.bank.repository.UserRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 
+//AccountHistoryRepo를 따로 만들어야하는지
 @Repository
 class AccountRepositoryImpl(
     val entityManager: EntityManager,
@@ -26,7 +27,7 @@ class AccountRepositoryImpl(
         return entity
     }
 
-    override fun addMoney(accountId: Int, money: Money): AccountHistoryEntity {
+    override fun addMoney(accountId: Int, money: Money, transcationAccountId: Int?): AccountHistoryEntity {
         val findAccount = entityManager.find(AccountEntity::class.java, accountId)
             ?: throw IllegalArgumentException("Account not found with id: $accountId")
 
@@ -34,14 +35,13 @@ class AccountRepositoryImpl(
             throw IllegalArgumentException("Currency not match ${money.currency} and ${findAccount.currency}")
         }
 
-
         findAccount.balance += money.amount
-        val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance)
+        val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance, transcationAccountId)
         entityManager.persist(findAccount)
         return newHistory
     }
 
-    override fun subtractMoney(accountId: Int, money: Money): AccountHistoryEntity {
+    override fun subtractMoney(accountId: Int, money: Money, transcationAccountId: Int?): AccountHistoryEntity {
         val findAccount = entityManager.find(AccountEntity::class.java, accountId)
             ?: throw IllegalArgumentException("Account not found with id: $accountId")
 
@@ -52,7 +52,7 @@ class AccountRepositoryImpl(
             throw IllegalArgumentException("balance can not be negative")
         }
         findAccount.balance -= money.amount
-        val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance)
+        val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance, transcationAccountId)
         entityManager.persist(findAccount)
         return newHistory
     }

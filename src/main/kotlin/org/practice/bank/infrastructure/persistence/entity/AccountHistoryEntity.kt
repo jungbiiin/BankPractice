@@ -1,9 +1,6 @@
 package org.practice.bank.infrastructure.persistence.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.practice.bank.infrastructure.persistence.entity.time.BaseEntity
 import org.springframework.data.annotation.CreatedDate
@@ -12,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate
 @Table(name = "tb_account_history", schema = "db_bank")
 class AccountHistoryEntity(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_history_id", nullable = false)
     var id: Int?,
     @Column(name = "account_id", nullable = false)

@@ -15,5 +15,6 @@ import java.time.LocalDateTime
 abstract class BaseEntity{
     @CreatedDate
     @Column(name="create_datetime",nullable = false, updatable = false)
-    var createDatetime: LocalDateTime = LocalDateTime.MIN
+    var createDatetime: LocalDateTime? = LocalDateTime.now()
 }
+// 시간이 안들어가...

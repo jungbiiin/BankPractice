@@ -7,13 +7,16 @@ import org.practice.bank.domains.account.Money
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.Transactional
 import kotlin.test.assertEquals
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@EnableJpaRepositories(basePackageClasses = [UserRepository::class])
+@EnableJpaRepositories(basePackageClasses = [AccountRepository::class])
 @SpringBootTest
 @ContextConfiguration(classes = [BankApplication::class])
 class AccountRepoTests {
@@ -46,7 +49,7 @@ class AccountRepoTests {
         assertEquals(res1.id, hisRes.accountId)
         assertEquals(2000, hisRes.amount)
         assertEquals(2,hisRes2.transactionAccountId)
-        println(hisRes.createDatetime) // 이거 왜 값이 -999999999-01-01T00:00
+        //println(hisRes.createDatetime) // 이거 왜 값이 -999999999-01-01T00:00
     }
 
     @Transactional

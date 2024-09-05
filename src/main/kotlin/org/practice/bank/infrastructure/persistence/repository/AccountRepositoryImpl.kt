@@ -38,6 +38,7 @@ class AccountRepositoryImpl(
         findAccount.balance += money.amount
         val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance, transcationAccountId)
         entityManager.persist(findAccount)
+        entityManager.persist(newHistory)
         return newHistory
     }
 
@@ -54,11 +55,8 @@ class AccountRepositoryImpl(
         findAccount.balance -= money.amount
         val newHistory = AccountHistoryEntity(null, findAccount.id!!, findAccount.balance, transcationAccountId)
         entityManager.persist(findAccount)
+        entityManager.persist(newHistory)
         return newHistory
-    }
-
-    override fun getHistory(userId: Int): List<AccountHistoryEntity> {
-        TODO("Not yet implemented")
     }
 
     override fun deleteAccount(userId: Int) {

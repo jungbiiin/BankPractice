@@ -1,6 +1,7 @@
 package org.practice.bank.infrastructure.persistence.entity
 
 import jakarta.persistence.*
+import org.practice.bank.domains.common.vo.Money
 
 @Entity
 @Table(name = "tb_account", schema = "db_bank")
@@ -16,4 +17,17 @@ class AccountEntity(
 
     @Column(name = "currency", nullable = false)
     val currency: String,
-)
+) {
+
+    fun addMoney(money: Money) {
+        balance += money.amount
+    }
+
+    fun subtractMoney(money: Money) {
+        if (balance < money.amount) {
+            throw Exception()
+        }
+        balance -= money.amount
+    }
+
+}

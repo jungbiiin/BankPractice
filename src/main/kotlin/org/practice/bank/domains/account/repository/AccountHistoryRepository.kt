@@ -1,4 +1,4 @@
-package org.practice.bank.repository
+package org.practice.bank.domains.account.repository
 
 import org.practice.bank.infrastructure.persistence.entity.AccountHistoryEntity
 

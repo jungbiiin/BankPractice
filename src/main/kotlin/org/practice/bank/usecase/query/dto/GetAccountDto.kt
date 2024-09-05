@@ -1,4 +1,4 @@
-package org.practice.bank.dto
+package org.practice.bank.usecase.query.dto
 
 import com.querydsl.core.annotations.QueryProjection
 

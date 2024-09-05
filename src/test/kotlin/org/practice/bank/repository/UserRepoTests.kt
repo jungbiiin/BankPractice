@@ -1,6 +1,7 @@
 package org.practice.bank.repository
 
 import org.practice.bank.BankApplication
+import org.practice.bank.domains.user.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest

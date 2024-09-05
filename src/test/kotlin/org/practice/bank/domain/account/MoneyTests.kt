@@ -2,7 +2,7 @@ package org.practice.bank.domain.account
 
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import org.practice.bank.domains.account.Money
+import org.practice.bank.domains.common.vo.Money
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -77,4 +77,5 @@ class MoneyTests {
             money1 - money2
         }
     }
+
 }

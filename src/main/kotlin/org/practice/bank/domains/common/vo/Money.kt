@@ -1,4 +1,4 @@
-package org.practice.bank.domains.account
+package org.practice.bank.domains.common.vo
 
 data class Money(
     val amount: Int,

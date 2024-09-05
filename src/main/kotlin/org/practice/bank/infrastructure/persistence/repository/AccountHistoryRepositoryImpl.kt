@@ -1,10 +1,9 @@
 package org.practice.bank.infrastructure.persistence.repository
 
 import com.querydsl.jpa.impl.JPAQueryFactory
-import jakarta.persistence.EntityManager
 import org.practice.bank.infrastructure.persistence.entity.AccountHistoryEntity
 import org.practice.bank.infrastructure.persistence.entity.QAccountHistoryEntity
-import org.practice.bank.repository.AccountHistoryRepository
+import org.practice.bank.domains.account.repository.AccountHistoryRepository
 import org.springframework.stereotype.Repository
 
 @Repository

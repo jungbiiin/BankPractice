@@ -11,7 +11,6 @@ class UserService(
 
     @Transactional
     fun createUser() {
-
     }
 
 }

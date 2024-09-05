@@ -18,20 +18,4 @@ class UserRepositoryImpl(
         return entity
     }
 
-//    override fun getAccountList(): List<GetAccountDto> {
-//        return jpaQueryFactory.select(
-//            QGetAccountDto(
-//                accountEntity.id,
-//                accountEntity.balance
-//            )
-//        ).from(accountEntity)
-//            .fetch()
-//    }
-//
-//    override fun getUserIdList(): List<Int> {
-//        val user = QUserEntity.userEntity
-//
-//        return jpaQueryFactory.select(user.id).from(user).fetch()
-//    }
-
 }

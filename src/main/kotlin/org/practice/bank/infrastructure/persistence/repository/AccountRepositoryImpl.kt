@@ -63,7 +63,4 @@ class AccountRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override fun getUserAccount(userId: Int): List<AccountEntity> {
-        TODO("Not yet implemented")
-    }
 }

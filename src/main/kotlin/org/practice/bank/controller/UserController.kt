@@ -18,13 +18,13 @@ class UserController(
         return ResponseEntity("Login successful", HttpStatus.OK)
     }
 
-    @GetMapping
-    fun getAccountList(): ResponseEntity<GetAccountListRes> {
-        return ResponseEntity.ok(
-            GetAccountListRes(
-                userService.getAccountList()
-            )
-        )
-    }
+//    @GetMapping
+//    fun getAccountList(): ResponseEntity<GetAccountListRes> {
+//        return ResponseEntity.ok(
+//            GetAccountListRes(
+//                userService.getAccountList()
+//            )
+//        )
+//    }
 
 }

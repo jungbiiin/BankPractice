@@ -22,13 +22,13 @@ class UserRepositoryImpl(
         return entity
     }
 
-    override fun getAccountList(): List<GetAccountDto> {
+    override fun getAccountList(userId:Int): List<GetAccountDto> {
         return jpaQueryFactory.select(
             QGetAccountDto(
                 accountEntity.id,
                 accountEntity.balance
             )
-        ).from(accountEntity)
+        ).where(accountEntity.userId.eq(userId)).from(accountEntity)
             .fetch()
     }
 

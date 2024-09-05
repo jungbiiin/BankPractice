@@ -10,13 +10,12 @@ class UserService(
     private val userRepository: UserRepository
 ) {
 
-    fun getAccountList(): List<GetAccountDto> {
-        return userRepository.getAccountList()
+    fun getAccountList(userId: Int): List<GetAccountDto> {
+        return userRepository.getAccountList(userId)
     }
 
     @Transactional
     fun createUser() {
-
     }
 
 }

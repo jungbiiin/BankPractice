@@ -9,5 +9,4 @@ interface AccountRepository {
     fun addMoney(accountId: Int, money: Money, transcationAccountId: Int?): AccountHistoryEntity
     fun subtractMoney(accountId: Int, money: Money, transcationAccountId: Int?): AccountHistoryEntity
     fun deleteAccount(userId: Int)
-    fun getUserAccount(userId: Int): List<AccountEntity>
 }

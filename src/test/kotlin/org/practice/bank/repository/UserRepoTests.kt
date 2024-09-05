@@ -16,15 +16,28 @@ import kotlin.test.assertEquals
 @ContextConfiguration(classes = [BankApplication::class])
 class UserRepoTests() {
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     private lateinit var userRepository: UserRepository
+
+    @Autowired(required = true)
+    private lateinit var accountRepository: AccountRepository
 
 
     @Transactional
     @Test
     fun createUserRepoTest() {
         val res1 = userRepository.createUser("testUser", "testPassword")
-        assertEquals("testUser",res1.userName)
-        assertEquals("testPassword",res1.userPassword)
+        assertEquals("testUser", res1.userName)
+        assertEquals("testPassword", res1.userPassword)
+    }
+
+    @Transactional
+    @Test
+    fun getAccountListTest() {
+        val res1 = userRepository.createUser("testUser", "testPassword")
+        accountRepository.createAccount(res1.id!!, "KRW");
+        accountRepository.createAccount(res1.id!!, "KRW");
+        val accountList = userRepository.getAccountList(res1.id!!);
+        assertEquals(2, accountList.size)
     }
 }

@@ -8,7 +8,7 @@ interface UserRepository {
 
     fun createUser(userName: String, password: String): UserEntity
 
-    fun getAccountList(): List<GetAccountDto>
+    fun getAccountList(userId: Int): List<GetAccountDto>
 
     fun getUserIdList(): List<Int>
 }

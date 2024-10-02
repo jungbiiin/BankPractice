@@ -4,7 +4,7 @@ import org.practice.bank.domains.common.vo.Money
 import java.time.LocalDateTime
 
 class AddedAccountBalanceEvent(
-    val account: Int,
+    val accountId: Int,
     val userId: Int,
     val oldBalance: Money,
     val newBalance: Money,

@@ -6,4 +6,5 @@ interface UserRepository {
 
     fun createUser(userName: String, password: String): UserEntity
 
+    fun checkExistName(userName: String): Boolean
 }

@@ -5,6 +5,8 @@ import org.practice.bank.domains.account.dto.CreateAccountDto
 import org.practice.bank.domains.account.repository.AccountRepository
 import org.practice.bank.domains.account.event.AddedAccountBalanceEvent
 import org.practice.bank.domains.account.factory.AccountFactory
+import org.practice.bank.domains.account.model.Account
+import org.practice.bank.domains.common.vo.Money
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Propagation
@@ -19,9 +21,11 @@ class AccountService(
 ) {
 
     @Transactional
-    fun create(createAccount: CreateAccountDto) {
+    fun create(createAccount: CreateAccountDto): Account {
         val account = accountFactory.create(createAccount.userId)
-        accountRepository.save(account)
+        val res = accountRepository.save(account)
+
+        return Account(res.id, res.userId, Money(res.balance, res.currency));
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

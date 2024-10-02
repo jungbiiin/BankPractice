@@ -11,14 +11,13 @@ import org.practice.bank.infrastructure.persistence.entity.QAccountEntity.accoun
 import org.practice.bank.domains.account.repository.AccountRepository
 import org.springframework.stereotype.Repository
 
-//AccountHistoryRepo를 따로 만들어야하는지
 @Repository
 class AccountRepositoryImpl(
     val entityManager: EntityManager,
     val jpaQueryFactory: JPAQueryFactory,
 ) : AccountRepository {
 
-    override fun save(account: Account) {
+    override fun save(account: Account): AccountEntity {
         val accountEntity = AccountEntity(
             account.id,
             account.userId,
@@ -30,6 +29,8 @@ class AccountRepositoryImpl(
         } else {
             entityManager.merge(accountEntity)
         }
+
+        return accountEntity;
     }
 
     override fun findById(accountId: Int): Account? {
@@ -45,6 +46,25 @@ class AccountRepositoryImpl(
                 accountEntity.currency
             )
         )
+    }
+
+    override fun findByUserId(userId: Int): List<Account> {
+        val accountEntities = jpaQueryFactory.selectFrom(accountEntity)
+            .where(accountEntity.userId.eq(userId))
+            .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+            .fetch()
+
+
+        return accountEntities.map { accountEntity ->
+            Account(
+                accountEntity.id,
+                accountEntity.userId,
+                Money(
+                    accountEntity.balance,
+                    accountEntity.currency
+                )
+            )
+        }
     }
 
 }

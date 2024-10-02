@@ -12,12 +12,16 @@ import org.springframework.transaction.event.TransactionalEventListener
 class AccountHistoryService(
     val accountHistoryRepository: AccountHistoryRepository,
 ) {
-
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun addMoney(event: AddedAccountBalanceEvent) {
-        TODO()
+        System.out.println("엄마 저 히스토리 안이에요")
+        accountHistoryRepository.saveHistory(
+            event.accountId,
+            event.newBalance.amount,
+            event.newBalance.amount - event.oldBalance.amount,
+            event.accountId
+        )
     }
-
 
 }

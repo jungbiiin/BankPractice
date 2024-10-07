@@ -16,13 +16,9 @@ class UserService(
     @Transactional
     fun create(createUser: CreateUserDto): User {
         val user = userFactory.create(createUser.userName, createUser.password)
-        val res = userRepository.createUser(user.name, user.password)
+        val res = userRepository.save(User(null,user.name,user.password))
 
-        if (userRepository.checkExistName(createUser.userName)) {
-            throw Exception("Username already exists: ${createUser.userName}")
-        }
-
-        return User(res.id, res.userName, res.userPassword)
+        return res
     }
 
 }

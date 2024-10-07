@@ -48,7 +48,6 @@ class AccountHistoryRepoTests {
     @Test
     @Order(2)
     fun getHistoriesByAccount() {
-
         val historyList = accountHistoryRepository.getHistoriesByAccount(1);
         assertEquals(2, historyList.size)
     }

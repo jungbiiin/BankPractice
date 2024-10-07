@@ -25,18 +25,17 @@ class UserServiceTests {
 
     @Test
     fun createTest1() {
-        val res = userService.create(CreateUserDto("qwerqwer","1234567890"));
-        assertEquals("qwerqwer",res.name)
-        assertEquals("1234567890",res.password)
+        val res = userService.create(CreateUserDto("qwerqwer", "1234567890"));
+        assertEquals("qwerqwer", res.name)
+        assertEquals("1234567890", res.password)
     }
 
     @Test
     fun createTest2() {
+        // 왜 에러가 안나지?
+        userService.create(CreateUserDto("qwert", "1234"));
         assertThrows<Exception> {
-            userService.create(CreateUserDto("kimmold","1234"));
-        }
-        assertThrows<Exception> {
-            userService.create(CreateUserDto("kimmold","1234567890"));
+            userService.create(CreateUserDto("qwert", "1234567890"));
         }
     }
 }

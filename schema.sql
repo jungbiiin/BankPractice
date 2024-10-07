@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS tb_user;
 create table tb_user
 (
     user_id       int         not null primary key auto_increment,
-    user_name     varchar(50) not null,
+    user_name     varchar(50) not null unique,
     user_password varchar(50) not null
 );
 

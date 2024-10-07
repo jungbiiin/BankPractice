@@ -1,11 +1,14 @@
 package org.practice.bank.repository
 
+import org.junit.jupiter.api.assertThrows
 import org.practice.bank.BankApplication
 import org.practice.bank.domains.account.repository.AccountRepository
+import org.practice.bank.domains.user.model.User
 import org.practice.bank.domains.user.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.core.annotation.Order
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.Transactional
@@ -27,19 +30,20 @@ class UserRepoTests() {
 
     @Transactional
     @Test
+    @Order(1)
     fun createUserRepoTest() {
-        val res1 = userRepository.createUser("testUser", "testPassword")
-        assertEquals("testUser", res1.userName)
-        assertEquals("testPassword", res1.userPassword)
+        val res1 = userRepository.save(User(null, "testUser", "testPassword"))
+        assertEquals("testUser", res1.name)
+        assertEquals("testPassword", res1.password)
     }
 
     @Transactional
     @Test
+    @Order(2)
     fun checkExistNameTest() {
-        val res1 = userRepository.createUser("testUser", "testPassword")
-        val isExist1 = userRepository.checkExistName("testUser")
-        assertEquals(true, isExist1)
-        val isExist2 = userRepository.checkExistName("asdfsdf")
-        assertEquals(false, isExist2)
+        userRepository.save(User(null, "testUser", "testPassword"))
+        assertThrows<Exception> {
+            userRepository.save(User(null, "testUser", "testPassword"))
+        }
     }
 }

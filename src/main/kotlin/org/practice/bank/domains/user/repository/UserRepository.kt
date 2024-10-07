@@ -1,10 +1,8 @@
 package org.practice.bank.domains.user.repository
 
-import org.practice.bank.infrastructure.persistence.entity.UserEntity
+import org.practice.bank.domains.user.model.User
 
 interface UserRepository {
 
-    fun createUser(userName: String, password: String): UserEntity
-
-    fun checkExistName(userName: String): Boolean
+    fun save(user: User): User
 }

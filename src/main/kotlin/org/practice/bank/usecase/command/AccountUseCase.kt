@@ -1,18 +1,29 @@
 package org.practice.bank.usecase.command
 
-import org.practice.bank.domains.account.dto.AddAccountMoneyDto
+import org.practice.bank.domains.account.dto.DepositAccountDto
+import org.practice.bank.domains.account.dto.WithdrawalAccountDto
 import org.practice.bank.domains.account.service.AccountService
-import org.practice.bank.usecase.command.dto.AddAccountMoneyCommand
+import org.practice.bank.usecase.command.dto.DepositCommand
+import org.practice.bank.usecase.command.dto.TransferCommand
+import org.practice.bank.usecase.command.dto.WithdrawalCommand
 import org.springframework.stereotype.Service
 
 @Service
 class AccountUseCase(
     val accountService: AccountService
 ) {
+    fun deposit(command: DepositCommand) {
+        accountService.deposit(
+            DepositAccountDto(
+                command.accountId,
+                command.money
+            )
+        )
+    }
 
-    fun addMoney(command: AddAccountMoneyCommand) {
-        accountService.addMoney(
-            AddAccountMoneyDto(
+    fun withdrawal(command: WithdrawalCommand) {
+        accountService.withdrawal(
+            WithdrawalAccountDto(
                 command.accountId,
                 command.money
             )

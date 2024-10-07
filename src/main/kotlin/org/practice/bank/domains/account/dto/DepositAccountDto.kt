@@ -2,11 +2,10 @@ package org.practice.bank.domains.account.dto
 
 import org.practice.bank.domains.common.vo.Money
 
-class AddAccountMoneyDto(
+class DepositAccountDto(
     val accountId: Int,
     val money: Money
 ) {
-
     init {
         if(accountId <= 0){
             throw Exception("Invalid account id")
@@ -15,5 +14,4 @@ class AddAccountMoneyDto(
             throw Exception("money must be greater than zero!")
         }
     }
-
 }

@@ -3,8 +3,10 @@ package org.practice.bank.service
 import org.junit.jupiter.api.Test
 
 import org.practice.bank.BankApplication
-import org.practice.bank.domains.account.dto.AddAccountMoneyDto
+import org.practice.bank.domains.account.dto.DepositAccountDto
 import org.practice.bank.domains.account.dto.CreateAccountDto
+import org.practice.bank.domains.account.dto.TransferAccountDto
+import org.practice.bank.domains.account.dto.WithdrawalAccountDto
 import org.practice.bank.domains.account.repository.AccountHistoryRepository
 import org.practice.bank.domains.account.repository.AccountRepository
 import org.practice.bank.domains.account.service.AccountService
@@ -44,10 +46,10 @@ class AccountServiceTests {
 
     @Test
     @Transactional
-    fun addMoney() {
+    fun deposit() {
         val res = accountService.create(CreateAccountDto(1))
-        val addAccountMoney = AddAccountMoneyDto(res.id!!, Money(10000, "KRW"))
-        accountService.addMoney(addAccountMoney)
+        val addAccountMoney = DepositAccountDto(res.id!!, Money(10000, "KRW"))
+        accountService.deposit(addAccountMoney)
 
         val account1 = accountRepository.findById(res.id!!)
 
@@ -55,14 +57,40 @@ class AccountServiceTests {
     }
 
     @Test
-    fun addMoney2() {
+    fun deposit2() {
         val res = accountService.create(CreateAccountDto(1))
-        val addAccountMoney = AddAccountMoneyDto(res.id!!, Money(10000, "KRW"))
-        accountService.addMoney(addAccountMoney)
+        val addAccountMoney = DepositAccountDto(res.id!!, Money(10000, "KRW"))
+        accountService.deposit(addAccountMoney)
 
         val histories = accountHistoryRepository.getHistoriesByAccount(res.id!!);
 
         assertEquals(1, histories.size)
         assertEquals(10000, histories[0].difference)
+    }
+
+    @Test
+    @Transactional
+    fun withdrawal() {
+        val res = accountService.create(CreateAccountDto(1))
+        val withdrawalAccountMoney = WithdrawalAccountDto(res.id!!, Money(10000, "KRW"))
+        accountService.withdrawal(withdrawalAccountMoney)
+
+        val account1 = accountRepository.findById(res.id!!)
+
+        assertEquals(990000, account1?.balance?.amount)
+    }
+
+    @Test
+    fun withdrawal2() {
+        val res = accountService.create(CreateAccountDto(1))
+        val withdrawalAccountMoney = WithdrawalAccountDto(res.id!!, Money(10000, "KRW"))
+        accountService.withdrawal(withdrawalAccountMoney)
+
+        val histories = accountHistoryRepository.getHistoriesByAccount(res.id!!);
+
+        assertEquals(1, histories.size)
+        assertEquals(-10000, histories[0].difference)
+    }
+
     }
 }

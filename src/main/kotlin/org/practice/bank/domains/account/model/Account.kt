@@ -16,6 +16,9 @@ class Account(
     }
 
     fun subAmount(amount: Money) {
+        if(amount.currency != balance.currency) {
+            throw Exception("")
+        }
         this.balance -= amount
     }
 

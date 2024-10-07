@@ -92,5 +92,16 @@ class AccountServiceTests {
         assertEquals(-10000, histories[0].difference)
     }
 
+    @Test
+    @Transactional
+    fun transfer(){
+        val account=accountService.create(CreateAccountDto(1))
+        val targetAccount= accountService.create(CreateAccountDto(1))
+        val transferAccountMoney = TransferAccountDto(account.id!!, Money(10000, "KRW"), targetAccount.id!!)
+        accountService.transfer(transferAccountMoney)
+        val accountRes = accountRepository.findById(account.id!!)
+        val targetAccountRes=accountRepository.findById(targetAccount.id!!)
+        assertEquals(990000, accountRes?.balance?.amount)
+        assertEquals(1010000, targetAccountRes?.balance?.amount)
     }
 }

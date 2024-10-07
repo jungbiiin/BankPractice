@@ -69,4 +69,17 @@ class AccountService(
         )
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    fun transfer(transferMoney: TransferAccountDto){
+        val account = accountRepository.findById(transferMoney.accountId)
+        ?: throw Exception("not found account by accountId: ${transferMoney.accountId}")
+        val targetAccount = accountRepository.findById(transferMoney.targetAccountId)
+        ?: throw Exception("not found account by accountId: ${transferMoney.accountId}")
+        val oldBalance = account.balance
+        val oldTargetBalance = targetAccount.balance
+        account.subAmount(transferMoney.money)
+        targetAccount.addMoney(transferMoney.money)
+        accountRepository.save(account)
+        accountRepository.save(targetAccount)
+    }
 }

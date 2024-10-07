@@ -3,6 +3,7 @@ package org.practice.bank.repository
 import org.junit.jupiter.api.Test
 import org.practice.bank.BankApplication
 import org.practice.bank.domains.account.model.Account
+import org.practice.bank.domains.account.model.AccountHistory
 import org.practice.bank.domains.account.repository.AccountHistoryRepository
 import org.practice.bank.domains.account.repository.AccountRepository
 import org.practice.bank.domains.common.vo.Money
@@ -40,8 +41,8 @@ class AccountHistoryRepoTests {
         )
         val accountRes = accountRepository.save(account1)
 
-        accountHistoryRepository.save(1, accountRes.balance,10000, 2);
-        accountHistoryRepository.save(1,  accountRes.balance,20000, 3);
+        accountHistoryRepository.save(AccountHistory(null, 1, accountRes.balance, 10000, 2, null));
+        accountHistoryRepository.save(AccountHistory(null, 1, accountRes.balance, 20000, 3, null));
     }
 
     @Transactional

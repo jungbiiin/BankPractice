@@ -6,6 +6,7 @@ import org.practice.bank.domains.account.dto.TransferAccountDto
 import org.practice.bank.domains.account.dto.WithdrawalAccountDto
 import org.practice.bank.domains.account.repository.AccountRepository
 import org.practice.bank.domains.account.event.DepositAccountEvent
+import org.practice.bank.domains.account.event.TransferAccountEvent
 import org.practice.bank.domains.account.event.WithdrawalAccountEvent
 import org.practice.bank.domains.account.factory.AccountFactory
 import org.practice.bank.domains.account.model.Account
@@ -81,5 +82,18 @@ class AccountService(
         targetAccount.addMoney(transferMoney.money)
         accountRepository.save(account)
         accountRepository.save(targetAccount)
+        eventPublisher.publishEvent(
+            TransferAccountEvent(
+                account.id!!,
+                targetAccount.id!!,
+                account.userId,
+                oldBalance,
+                account.balance,
+                oldTargetBalance,
+                targetAccount.balance,
+                transferMoney.money,
+                LocalDateTime.now()
+            )
+        )
     }
 }

@@ -5,5 +5,5 @@ import org.practice.bank.infrastructure.persistence.entity.AccountHistoryEntity
 
 interface AccountHistoryRepository {
     fun getHistoriesByAccount(accountId: Int): List<AccountHistory>
-    fun save(accountId: Int, amount: Int, difference: Int, transactionAccountId: Int)
+    fun save(history: AccountHistory)
 }

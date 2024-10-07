@@ -8,6 +8,6 @@ class DepositAccountEvent(
     val userId: Int,
     val oldBalance: Money,
     val newBalance: Money,
-    val addMoney: Money,
+    val depositMoney: Money,
     val createAt: LocalDateTime,
 )

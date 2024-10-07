@@ -17,13 +17,17 @@ class AccountHistoryRepositoryImpl(
     val jpaQueryFactory: JPAQueryFactory,
 ) : AccountHistoryRepository {
     override fun save(
-        accountId: Int,
-        amount: Int,
-        difference: Int,
-        transactionAccountId: Int
+        history: AccountHistory,
     ) {
         val historyEntity =
-            AccountHistoryEntity(null, accountId, amount, difference, transactionAccountId, LocalDateTime.now())
+            AccountHistoryEntity(
+                null,
+                history.accountId,
+                history.amount,
+                history.difference,
+                history.transactionAccountId,
+                LocalDateTime.now()
+            )
         entityManager.persist(historyEntity);
     }
 

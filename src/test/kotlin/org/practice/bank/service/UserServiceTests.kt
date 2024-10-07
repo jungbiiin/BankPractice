@@ -32,8 +32,9 @@ class UserServiceTests {
 
     @Test
     fun createTest2() {
-        // 왜 에러가 안나지?
-        userService.create(CreateUserDto("qwert", "1234"));
+        assertThrows<Exception> {
+            userService.create(CreateUserDto("qwert", "1234"));
+        }
         assertThrows<Exception> {
             userService.create(CreateUserDto("qwert", "1234567890"));
         }

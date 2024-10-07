@@ -10,5 +10,5 @@ class AccountHistory (
     val amount: Int,
     val difference: Int,
     val transactionAccountId: Int,
-    val createDateTime: LocalDateTime,
+    val createDateTime: LocalDateTime?,
 )

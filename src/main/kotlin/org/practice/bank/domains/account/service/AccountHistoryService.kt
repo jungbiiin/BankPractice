@@ -15,13 +15,11 @@ class AccountHistoryService(
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun addMoney(event: AddedAccountBalanceEvent) {
-        System.out.println("엄마 저 히스토리 안이에요")
-        accountHistoryRepository.saveHistory(
+        accountHistoryRepository.save(
             event.accountId,
             event.newBalance.amount,
             event.newBalance.amount - event.oldBalance.amount,
             event.accountId
         )
     }
-
 }

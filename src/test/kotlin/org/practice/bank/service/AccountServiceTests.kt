@@ -45,20 +45,20 @@ class AccountServiceTests {
     @Test
     @Transactional
     fun addMoney() {
-        val res = accountService.create(CreateAccountDto(1));
-        val addAccountMoney = AddAccountMoneyDto(res.id!!, Money(10000, "KRW"));
-        accountService.addMoney(addAccountMoney);
+        val res = accountService.create(CreateAccountDto(1))
+        val addAccountMoney = AddAccountMoneyDto(res.id!!, Money(10000, "KRW"))
+        accountService.addMoney(addAccountMoney)
 
-        val account1 = accountRepository.findById(res.id!!);
+        val account1 = accountRepository.findById(res.id!!)
 
-        assertEquals(1010000, account1?.balance?.amount);
+        assertEquals(1010000, account1?.balance?.amount)
     }
 
     @Test
     fun addMoney2() {
-        val res = accountService.create(CreateAccountDto(1));
-        val addAccountMoney = AddAccountMoneyDto(res.id!!, Money(10000, "KRW"));
-        accountService.addMoney(addAccountMoney);
+        val res = accountService.create(CreateAccountDto(1))
+        val addAccountMoney = AddAccountMoneyDto(res.id!!, Money(10000, "KRW"))
+        accountService.addMoney(addAccountMoney)
 
         val histories = accountHistoryRepository.getHistoriesByAccount(res.id!!);
 
